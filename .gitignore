@@ -1,5 +1,6 @@
 .vscode/settings.json
 .DS_Store
-vale_events/__pycache__/main.cpython-312.pyc
-__pycache__/main.cpython-312.pyc
 .python-version
+*.pyc
+__pycache__/
+
