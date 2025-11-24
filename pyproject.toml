@@ -6,8 +6,15 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.121.3",
+    "imutils>=0.5.4",
+    "layoutparser>=0.3.4",
+    "numpy>=2.3.5",
     "ollama>=0.6.1",
+    "paddleocr>=3.3.2",
+    "paddlepaddle>=3.2.2",
+    "pandas>=2.3.3",
+    "pillow>=12.0.0",
     "pydantic>=2.12.4",
-    "pytesseract>=0.3.13",
+    "requests>=2.32.5",
     "uvicorn>=0.38.0",
 ]

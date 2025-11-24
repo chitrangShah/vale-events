@@ -30,7 +30,7 @@ class ProcessEventsHandler:
                 extracted_text = self.ocr_client.extract_text(str(image_path))
                 
                 # Step 2: Process text using LLM to extract event data
-                event = self.llm_client.process_text(
+                event = self.llm_client.parse_event(
                     ocr_text=extracted_text, 
                     image_path=str(image_path)
                 )
