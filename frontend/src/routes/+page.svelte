@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { injectAnalytics } from '@vercel/analytics/sveltekit'
 
   interface Event {
     id: string;
