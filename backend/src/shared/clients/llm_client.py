@@ -86,6 +86,7 @@ class LLMClient:
         Returns:
             Complete prompt
         """
+        current_year = datetime.now().year
         prompt = f"""Extract event information from this text and return ONLY valid JSON.
 
             TEXT:
@@ -96,6 +97,10 @@ class LLMClient:
             2. Organization = Who hosts it (e.g., "Vale Coffee Shoppe")
             3. Location = Venue name only
             4. Address = Full street address
+            5. Date = Convert to YYYY-MM-DD format
+            - If year is NOT mentioned, use {current_year}
+            - Example: "December 7th" → "{current_year}-12-07"
+            - Example: "Sunday, December 7th" → "{current_year}-12-07"
 
             IMPORTANT:
             - Return ONLY valid JSON

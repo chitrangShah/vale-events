@@ -1,6 +1,0 @@
-Processing Errors
-============================================================
-
-Error 1:
-Error processing 559346455_10233469132084399_5715740848322251360_n.jpg: LLM parsing failed: Ollama API error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
-

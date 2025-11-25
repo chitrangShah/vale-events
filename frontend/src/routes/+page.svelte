@@ -17,6 +17,7 @@
   let events: Event[] = [];
   let loading = true;
   let error = '';
+  let selectedImage: string | null = null;
 
   onMount(async () => {
     try {
@@ -38,9 +39,22 @@
     return `/images/${filename}`;
   }
 
+  function viewImage(imagePath: string) {
+    selectedImage = getImageUrl(imagePath);
+  }
+
+  function closeModal() {
+    selectedImage = null;
+  }
+
+  // Calendar functionality
   function formatDate(dateStr: string | null): string {
     if (!dateStr) return 'Date TBA';
-    const date = new Date(dateStr);
+    
+    // Parse as local date to avoid timezone issues
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day); // month is 0-indexed
+    
     return date.toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
@@ -55,20 +69,45 @@
       return;
     }
 
-    const eventDate = new Date(event.date);
-    const startTime = event.time?.split('-')[0]?.trim() || '09:00';
+    // Parse date locally to avoid timezone issues
+    const [year, month, day] = event.date.split('-').map(Number);
+    const eventDate = new Date(year, month - 1, day); // month is 0-indexed
     
-    const ics = `BEGIN:VCALENDAR
-                VERSION:2.0
-                BEGIN:VEVENT
-                DTSTART:${formatICSDate(eventDate, startTime)}
-                SUMMARY:${event.name}
-                DESCRIPTION:${event.description || ''}
-                LOCATION:${event.address || event.location || ''}
-                END:VEVENT
-                END:VCALENDAR`;
+    const startTime = event.time?.split('-')[0]?.trim() || '09:00';
+    const endTime = event.time?.split('-')[1]?.trim() || '17:00';
+    
+    // Generate unique ID
+    const uid = `${event.id}@vale-events.com`;
+    
+    // Current timestamp for DTSTAMP
+    const now = new Date();
+    const dtstamp = formatICSDate(now, '00:00');
+    
+    // Format start and end times
+    const dtstart = formatICSDate(eventDate, startTime);
+    const dtend = formatICSDate(eventDate, endTime);
+    
+    // Create ICS content with proper line endings
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Vale Events//Event Calendar//EN',
+      'BEGIN:VEVENT',
+      `UID:${uid}`,
+      `DTSTAMP:${dtstamp}`,
+      `DTSTART:${dtstart}`,
+      `DTEND:${dtend}`,
+      `SUMMARY:${event.name}`,
+      `DESCRIPTION:${event.description || ''}`,
+      `LOCATION:${event.address || event.location || ''}`,
+      'STATUS:CONFIRMED',
+      'SEQUENCE:0',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
 
-    const blob = new Blob([ics], { type: 'text/calendar' });
+    // Download .ics file
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -82,6 +121,7 @@
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     
+    // Parse time (e.g., "10:00 AM" or "1:00 PM")
     const timeMatch = time.match(/(\d+):?(\d+)?\s*(am|pm)?/i);
     let hours = timeMatch ? parseInt(timeMatch[1]) : 9;
     const minutes = timeMatch?.[2] || '00';
@@ -123,11 +163,20 @@
     <div class="events-grid">
       {#each events as event}
         <article class="event-card">
-          <div class="event-image">
+          <div class="event-image" on:click={() => viewImage(event.image_path)} on:keydown={(e) => e.key === 'Enter' && viewImage(event.image_path)} role="button" tabindex="0">
             <img src={getImageUrl(event.image_path)} alt={event.name} />
             {#if event.price}
               <span class="price-badge">{event.price}</span>
             {/if}
+            <div class="image-overlay">
+              <svg class="zoom-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+              <span>Click to view</span>
+            </div>
           </div>
           
           <div class="event-content">
@@ -160,13 +209,13 @@
                 </div>
               {/if}
 
-              {#if event.location}
+              {#if event.address || event.location}
                 <div class="detail">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
-                  <span>{event.location}</span>
+                  <span>{event.address || event.location}</span>
                 </div>
               {/if}
             </div>
@@ -187,6 +236,20 @@
           </div>
         </article>
       {/each}
+    </div>
+  {/if}
+
+  {#if selectedImage}
+    <div class="modal" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && closeModal()} role="button" tabindex="0">
+      <div class="modal-content" on:click={(e) => e.stopPropagation()} on:keydown={() => {}} role="button" tabindex="0">
+        <button class="close-btn" on:click={closeModal}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <img src={selectedImage} alt="Event flyer" />
+      </div>
     </div>
   {/if}
 </div>
@@ -417,5 +480,91 @@
     .event-content {
       padding: 1rem;
     }
+  }
+
+  .event-image {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #f0f0f0;
+    cursor: pointer;
+  }
+
+  .image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: 600;
+  }
+
+  .event-image:hover .image-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+  }
+
+  .zoom-icon {
+    width: 48px;
+    height: 48px;
+    stroke-width: 2;
+  }
+
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .close-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .close-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    stroke: #333;
   }
 </style>
