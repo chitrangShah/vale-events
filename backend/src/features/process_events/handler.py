@@ -1,8 +1,8 @@
 
 from pathlib import Path
-from shared.clients.llm_client import LLMClient
-from shared.clients.ocr_client import OCRClient
-from shared.models import Output
+from src.shared.clients.llm_client import LLMClient
+from src.shared.clients.ocr_client import OCRClient
+from src.shared.models import Output
 
 
 class ProcessEventsHandler:

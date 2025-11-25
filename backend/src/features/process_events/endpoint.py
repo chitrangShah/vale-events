@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter
-from shared.models import Output
-from features.process_events.handler import ProcessEventsHandler
+from src.shared.models.Output import Output
+from src.features.process_events.handler import ProcessEventsHandler
 
 # Router path: /process-events
 router = APIRouter(prefix="/api", tags=["process"])

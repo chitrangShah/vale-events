@@ -6,7 +6,7 @@ Uses Ollama with robust error handling.
 from pathlib import Path
 import ollama
 import json
-from shared.models import Event
+from src.shared.models import Event
 from datetime import datetime
 from typing import Optional
 
