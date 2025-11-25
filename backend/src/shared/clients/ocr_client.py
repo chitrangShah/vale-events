@@ -98,7 +98,7 @@ class OCRClient:
         No image-specific fixes.
         """
         # Fix common date ordinals
-        text = re.sub(r'(\d+)th\b', lambda m: self._fix_ordinal(m.group(1)), text)
+        text = re.sub(r'(\d+)th\b', lambda m: self.fix_ordinal(m.group(1)), text)
         
         # Fix common time patterns
         text = re.sub(r'(\d+)am', r'\1am', text, flags=re.IGNORECASE)

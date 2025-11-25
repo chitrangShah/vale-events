@@ -1,6 +1,30 @@
-.vscode/settings.json
-.DS_Store
-.python-version
-*.pyc
-__pycache__/
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/.ruff_cache/
 
+# Node
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/build/
+
+# Keep static files (these are deployed)
+!frontend/static/api/
+!frontend/static/images/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+
+# Data (keep images but not events JSON)
+backend/data/images/*
+backend/data/events/*
+!backend/data/images/.gitkeep
+!backend/data/events/.gitkeep
+backend/logs/

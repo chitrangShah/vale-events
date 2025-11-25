@@ -1,4 +1,5 @@
 
+import json
 from pathlib import Path
 from src.shared.clients.llm_client import LLMClient
 from src.shared.clients.ocr_client import OCRClient
@@ -10,7 +11,9 @@ class ProcessEventsHandler:
         self.ocr_client = OCRClient()
         self.llm_client = LLMClient()
         self.images_dir = Path("data/images")
+        self.events_dir = Path("data/events")
         self.images_dir.mkdir(parents=True, exist_ok=True)
+        self.events_dir.mkdir(parents=True, exist_ok=True)
         
     def execute(self, force: bool = False) -> Output:
         
@@ -26,6 +29,8 @@ class ProcessEventsHandler:
         
         for image_path in self.images_dir.glob("*.jpg"):
             try:
+                print(f"Processing: {image_path.name}")
+                
                 # Step 1: Extract text using OCR
                 extracted_text = self.ocr_client.extract_text(str(image_path))
                 
@@ -34,7 +39,17 @@ class ProcessEventsHandler:
                     ocr_text=extracted_text, 
                     image_path=str(image_path)
                 )
-                print(f"Extracted Event from {image_path.name}: {event.json()}")
+                print(f"Extracted Event from {image_path.name}")
+                
+                # Step 3: Save event data to JSON file
+                event_file = self.events_dir / f"{image_path.stem}.json"
+                if event_file.exists() and not force:
+                    print(f"Skipping existing event file: {event_file.name}")
+                    result.skipped += 1
+                    continue
+                
+                with open(event_file, 'w') as f:
+                    json.dump(event.dict(), f, indent=2)
                 
                 result.processed += 1
                 

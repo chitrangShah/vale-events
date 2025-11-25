@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "id": "559346455_10233469132084399_5715740848322251360_n",
+      "image_path": "data/images/559346455_10233469132084399_5715740848322251360_n.jpg",
+      "raw_ocr_text": "BERGENVOLUNTEERS\nInvites You to:\nNeighbors Helping Neighbors\nTogether, we will assemble essential care items\nfor our neighbors in need.\nSNACKS | DRINKS | GIVING BACK\nSunday, December 7th\n10:00 AM - 1:00 PM\nRegister here or scan below. Registration fee applies.*\n14 V\nAll ages are welcome. Drop in any time to help!\nCommunity service hours available upon request.\n50 Eisenhower Drive, Paramus, NJ\nFor questions, contact hbaris@bergenvolunteers.org\n*This fundraiser helps Bergen Volunteers to continue to support vulnerable populations in our community.",
+      "extracted_at": "2025-11-25T11:57:01.767286",
+      "name": "Neighbors Helping Neighbors",
+      "date": "2024-12-07",
+      "time": "10:00 AM - 1:00 PM",
+      "location": "Eisenhower Drive",
+      "address": "50 Eisenhower Drive, Paramus, NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "BERGENVOLUNTEERS"
+    }
+  ],
+  "count": 1
+}
