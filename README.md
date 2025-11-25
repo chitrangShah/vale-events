@@ -2,8 +2,8 @@
 
 Event extraction and management system using OCR (PaddleOCR) and LLM (Ollama) to automatically process event flyer images into structured data.
 
-[![Backend CI](https://github.com/chitrangShah/vale_events/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/chitrangShah/vale_events/actions/workflows/backend-ci.yml)
-[![Frontend CI](https://github.com/chitrangShah/vale_events/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/chitrangShah/vale_events/actions/workflows/frontend-ci.yml)
+[![Backend CI](![](https://img.shields.io/badge/Backend%20--blue?style=for-the-badge&logo=python))](https://github.com/chitrangShah/vale_events/actions/workflows/backend-ci.yml)
+[![Frontend CI](![](https://img.shields.io/badge/Frontend--b983d8?style=for-the-badge&logo=svelte))](https://github.com/chitrangShah/vale_events/actions/workflows/frontend-ci.yml)
 [![Vercel Deployment](https://img.shields.io/badge/vercel-deployed-success)](https://vale-events.vercel.app/)
 
 **Live Site:** https://vale-events.vercel.app/
