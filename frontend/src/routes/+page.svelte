@@ -3,32 +3,25 @@
   import { dev } from '$app/environment';
   import { injectAnalytics } from '@vercel/analytics/sveltekit';
 
+  import type { Event, EventGroup } from '$lib/types';
+  import { getToday, parseEventDate } from '$lib/dateUtils';
+  import { filterAndGroupEvents } from '$lib/eventUtils';
+
   injectAnalytics({ mode: dev ? 'development' : 'production' });
 
-  interface Event {
-    id: string;
-    name: string;
-    date: string | null;
-    time: string | null;
-    location: string | null;
-    address: string | null;
-    description: string | null;
-    organization: string | null;
-    price: string | null;
-    image_path: string;
-  }
-
-  let events: Event[] = [];
+  let eventGroups: EventGroup[] = [];
   let loading = true;
   let error = '';
   let selectedImage: string | null = null;
 
   onMount(async () => {
     try {
-      // Fetch from static JSON file (no backend needed!)
       const response = await fetch('/api/events.json');
       const data = await response.json();
-      events = data.events;
+
+      // Process and group the events
+      const today = getToday();
+      eventGroups = filterAndGroupEvents(data.events, today);
     } catch (err) {
       error = 'Failed to load events';
       console.error(err);
@@ -37,7 +30,10 @@
     }
   });
 
-  // Get image from static folder
+  // ============================================
+  // UI HELPER FUNCTIONS
+  // ============================================
+
   function getImageUrl(imagePath: string): string {
     const filename = imagePath.split('/').pop();
     return `/images/${filename}`;
@@ -51,21 +47,27 @@
     selectedImage = null;
   }
 
-  // Calendar functionality
   function formatDate(dateStr: string | null): string {
     if (!dateStr) return 'Date TBA';
-    
-    // Parse as local date to avoid timezone issues
-    const [year, month, day] = dateStr.split('-').map(Number);
-    const date = new Date(year, month - 1, day); // month is 0-indexed
-    
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+
+    const date = parseEventDate(dateStr);
+    if (!date) return 'Date TBA';
+
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   }
+
+  function getTotalEventCount(): number {
+    return eventGroups.reduce((sum, group) => sum + group.events.length, 0);
+  }
+
+  // ============================================
+  // CALENDAR FUNCTIONS
+  // ============================================
 
   function addToCalendar(event: Event) {
     if (!event.date) {
@@ -73,25 +75,21 @@
       return;
     }
 
-    // Parse date locally to avoid timezone issues
-    const [year, month, day] = event.date.split('-').map(Number);
-    const eventDate = new Date(year, month - 1, day); // month is 0-indexed
-    
+    const eventDate = parseEventDate(event.date);
+    if (!eventDate) {
+      alert('Invalid event date');
+      return;
+    }
+
     const startTime = event.time?.split('-')[0]?.trim() || '09:00';
     const endTime = event.time?.split('-')[1]?.trim() || '17:00';
-    
-    // Generate unique ID
+
     const uid = `${event.id}@vale-events.com`;
-    
-    // Current timestamp for DTSTAMP
     const now = new Date();
     const dtstamp = formatICSDate(now, '00:00');
-    
-    // Format start and end times
     const dtstart = formatICSDate(eventDate, startTime);
     const dtend = formatICSDate(eventDate, endTime);
-    
-    // Create ICS content with proper line endings
+
     const ics = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -110,7 +108,6 @@
       'END:VCALENDAR'
     ].join('\r\n');
 
-    // Download .ics file
     const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -124,18 +121,17 @@
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    
-    // Parse time (e.g., "10:00 AM" or "1:00 PM")
+
     const timeMatch = time.match(/(\d+):?(\d+)?\s*(am|pm)?/i);
     let hours = timeMatch ? parseInt(timeMatch[1]) : 9;
     const minutes = timeMatch?.[2] || '00';
     const ampm = timeMatch?.[3]?.toLowerCase();
-    
+
     if (ampm === 'pm' && hours < 12) hours += 12;
     if (ampm === 'am' && hours === 12) hours = 0;
-    
+
     const hoursStr = String(hours).padStart(2, '0');
-    
+
     return `${year}${month}${day}T${hoursStr}${minutes}00`;
   }
 </script>
@@ -159,93 +155,117 @@
     <div class="error-box">
       <p>{error}</p>
     </div>
-  {:else if events.length === 0}
+  {:else if getTotalEventCount() === 0}
     <div class="empty-state">
-      <p>No events found. Check back soon!</p>
+      <p>No upcoming events found. Check back soon!</p>
     </div>
   {:else}
-    <div class="events-grid">
-      {#each events as event}
-        <article class="event-card">
-          <div class="event-image" on:click={() => viewImage(event.image_path)} on:keydown={(e) => e.key === 'Enter' && viewImage(event.image_path)} role="button" tabindex="0">
-            <img src={getImageUrl(event.image_path)} alt={event.name} />
-            {#if event.price}
-              <span class="price-badge">{event.price}</span>
-            {/if}
-            <div class="image-overlay">
-              <svg class="zoom-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
-              <span>Click to view</span>
-            </div>
-          </div>
-          
-          <div class="event-content">
-            <h2 class="event-name">{event.name}</h2>
-            
-            {#if event.organization}
-              <p class="organization">{event.organization}</p>
-            {/if}
+    {#each eventGroups as group}
+      <section class="event-section">
+        <h2 class="section-title">{group.label}</h2>
 
-            <div class="event-details">
-              {#if event.date}
-                <div class="detail">
+        <div class="events-grid">
+          {#each group.events as event}
+            <article class="event-card">
+              <div
+                class="event-image"
+                on:click={() => viewImage(event.image_path)}
+                on:keydown={(e) => e.key === 'Enter' && viewImage(event.image_path)}
+                role="button"
+                tabindex="0"
+              >
+                <img src={getImageUrl(event.image_path)} alt={event.name} />
+                {#if event.price}
+                  <span class="price-badge">{event.price}</span>
+                {/if}
+                <div class="image-overlay">
+                  <svg class="zoom-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                  <span>Click to view</span>
+                </div>
+              </div>
+
+              <div class="event-content">
+                <h3 class="event-name">{event.name}</h3>
+
+                {#if event.organization}
+                  <p class="organization">{event.organization}</p>
+                {/if}
+
+                <div class="event-details">
+                  {#if event.date}
+                    <div class="detail">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                      <span>{formatDate(event.date)}</span>
+                    </div>
+                  {/if}
+
+                  {#if event.time}
+                    <div class="detail">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>{event.time}</span>
+                    </div>
+                  {/if}
+
+                  {#if event.address || event.location}
+                    <div class="detail">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>{event.address || event.location}</span>
+                    </div>
+                  {/if}
+                </div>
+
+                {#if event.description}
+                  <p class="description">{event.description}</p>
+                {/if}
+
+                <button class="calendar-btn" on:click={() => addToCalendar(event)}>
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                     <line x1="16" y1="2" x2="16" y2="6"></line>
                     <line x1="8" y1="2" x2="8" y2="6"></line>
                     <line x1="3" y1="10" x2="21" y2="10"></line>
                   </svg>
-                  <span>{formatDate(event.date)}</span>
-                </div>
-              {/if}
-
-              {#if event.time}
-                <div class="detail">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                  <span>{event.time}</span>
-                </div>
-              {/if}
-
-              {#if event.address || event.location}
-                <div class="detail">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                  <span>{event.address || event.location}</span>
-                </div>
-              {/if}
-            </div>
-
-            {#if event.description}
-              <p class="description">{event.description}</p>
-            {/if}
-
-            <button class="calendar-btn" on:click={() => addToCalendar(event)}>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              Add to Calendar
-            </button>
-          </div>
-        </article>
-      {/each}
-    </div>
+                  Add to Calendar
+                </button>
+              </div>
+            </article>
+          {/each}
+        </div>
+      </section>
+    {/each}
   {/if}
 
   {#if selectedImage}
-    <div class="modal" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && closeModal()} role="button" tabindex="0">
-      <div class="modal-content" on:click={(e) => e.stopPropagation()} on:keydown={() => {}} role="button" tabindex="0">
+    <div
+      class="modal"
+      on:click={closeModal}
+      on:keydown={(e) => e.key === 'Escape' && closeModal()}
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="modal-content"
+        on:click={(e) => e.stopPropagation()}
+        on:keydown={() => {}}
+        role="button"
+        tabindex="0"
+      >
         <button class="close-btn" on:click={closeModal}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -259,11 +279,11 @@
 </div>
 
 <style>
-  /* Use the same beautiful styles from before */
   :global(body) {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
   }
@@ -284,13 +304,27 @@
     font-size: 3rem;
     margin: 0 0 0.5rem 0;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .subtitle {
     font-size: 1.2rem;
     opacity: 0.9;
     margin: 0;
+  }
+
+  .event-section {
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .loading {
@@ -303,14 +337,16 @@
     width: 50px;
     height: 50px;
     margin: 0 auto 1rem;
-    border: 4px solid rgba(255,255,255,0.3);
+    border: 4px solid rgba(255, 255, 255, 0.3);
     border-top-color: white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .error-box {
@@ -322,7 +358,7 @@
   }
 
   .empty-state {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
     padding: 3rem;
     border-radius: 12px;
     text-align: center;
@@ -339,13 +375,15 @@
     background: white;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .event-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
   }
 
   .event-image {
@@ -354,6 +392,7 @@
     height: 250px;
     overflow: hidden;
     background: #f0f0f0;
+    cursor: pointer;
   }
 
   .event-image img {
@@ -372,7 +411,33 @@
     border-radius: 20px;
     font-weight: 600;
     font-size: 0.9rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: 600;
+  }
+
+  .event-image:hover .image-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+  }
+
+  .zoom-icon {
+    width: 48px;
+    height: 48px;
+    stroke-width: 2;
   }
 
   .event-content {
@@ -436,7 +501,9 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     margin-top: 1rem;
   }
 
@@ -447,78 +514,6 @@
 
   .calendar-btn:active {
     transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2rem;
-    }
-
-    .subtitle {
-      font-size: 1rem;
-    }
-
-    .events-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .event-image {
-      height: 200px;
-    }
-
-    .container {
-      padding: 1.5rem 1rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 1.75rem;
-    }
-
-    .event-name {
-      font-size: 1.25rem;
-    }
-
-    .event-content {
-      padding: 1rem;
-    }
-  }
-
-  .event-image {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    background: #f0f0f0;
-    cursor: pointer;
-  }
-
-  .image-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    opacity: 0;
-    transition: all 0.3s ease;
-    color: white;
-    font-weight: 600;
-  }
-
-  .event-image:hover .image-overlay {
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 1;
-  }
-
-  .zoom-icon {
-    width: 48px;
-    height: 48px;
-    stroke-width: 2;
   }
 
   .modal {
@@ -570,5 +565,46 @@
     height: 24px;
     stroke-width: 2;
     stroke: #333;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+    }
+
+    .events-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .event-image {
+      height: 200px;
+    }
+
+    .container {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    .event-name {
+      font-size: 1.25rem;
+    }
+
+    .event-content {
+      padding: 1rem;
+    }
   }
 </style>

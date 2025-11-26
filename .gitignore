@@ -10,6 +10,7 @@ __pycache__/
 frontend/node_modules/
 frontend/.svelte-kit/
 frontend/build/
+frontend/.vercel/
 
 # Keep static files (these are deployed)
 !frontend/static/api/
