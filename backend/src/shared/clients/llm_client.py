@@ -1,6 +1,6 @@
 """
-LLM Client for parsing OCR text into structured event data.
-Uses Ollama with robust error handling.
+LLM Client for extracting event data directly from images.
+Uses Ollama with llama3.2-vision model.
 """
 
 from pathlib import Path
@@ -13,39 +13,34 @@ from typing import Optional
 
 class LLMClient:
     """
-    Parses OCR text into structured Event objects using Ollama LLM.
+    Extracts event information directly from images using Ollama vision model.
     """
     
-    def __init__(self, model_name: str = "llama3.2"):
+    def __init__(self, model_name: str = "llama3.2-vision"):
         """
         Initialize LLM client.
         
         Args:
-            model_name: Ollama model name
+            model_name: Ollama vision model name
         """
         self.model_name = model_name
     
-    def parse_event(self, ocr_text: str, image_path: str) -> Event:
+    def parse_event_from_image(self, image_path: str) -> Event:
         """
-        Parse OCR text into Event object.
+        Extract event info directly from image using vision model.
         
         Args:
-            ocr_text: Raw text from OCR
-            image_path: Path to original image
+            image_path: Path to event flyer image
             
         Returns:
             Event object
         """
-        # Validate OCR text is not empty
-        if not ocr_text or len(ocr_text.strip()) < 10:
-            raise Exception("OCR text is too short or empty")
-        
         # Build prompt
-        prompt = self.build_prompt(ocr_text)
+        prompt = self.build_prompt()
         
         try:
-            # Call Ollama
-            response = self.call_ollama(prompt)
+            # Call Ollama with image
+            response = self.call_ollama_vision(prompt, image_path)
             
             # Validate response
             if not response or not response.strip():
@@ -54,7 +49,6 @@ class LLMClient:
             # Extract JSON
             json_text = self.extract_json(response)
             
-            # Validate JSON text
             if not json_text or not json_text.strip():
                 print(f"Error: No JSON found in response")
                 print(f"Raw response: {response[:300]}")
@@ -69,68 +63,47 @@ class LLMClient:
                 raise Exception(f"Invalid JSON: {str(e)}")
             
             # Create event
-            event = self.create_event(data, ocr_text, image_path)
+            event = self.create_event(data, image_path)
             
             return event
         
         except Exception as error:
-            raise Exception(f"LLM parsing failed: {str(error)}")
+            raise Exception(f"Vision extraction failed: {str(error)}")
     
-    def build_prompt(self, ocr_text: str) -> str:
+    def build_prompt(self) -> str:
         """
-        Build extraction prompt.
+        Build extraction prompt for vision model.
         
-        Args:
-            ocr_text: OCR text to parse
-            
         Returns:
             Complete prompt
         """
-        current_year = datetime.now().year
-        prompt = f"""Extract event information from this text and return ONLY valid JSON.
-
-            TEXT:
-            {ocr_text}
-
-            RULES:
-            1. Event name = Main event being advertised (e.g., "4th Annual Artisan Faire")
-            2. Organization = Who hosts it (e.g., "Vale Coffee Shoppe")
-            3. Location = Venue name only
-            4. Address = Full street address
-            5. Date = Convert to YYYY-MM-DD format
-            - If year is NOT mentioned, use {current_year}
-            - Example: "December 7th" → "{current_year}-12-07"
-            - Example: "Sunday, December 7th" → "{current_year}-12-07"
-
-            IMPORTANT:
-            - Return ONLY valid JSON
-            - No markdown code blocks
-            - No explanations
-            - Start with {{ and end with }}
-
-            JSON Format:
-            {{
-            "name": "Event name",
-            "organization": "Host organization",
-            "date": "YYYY-MM-DD",
-            "time": "Time range",
-            "location": "Venue",
-            "address": "Full address",
-            "description": null,
-            "contact": null,
-            "price": null
-            }}
-
-            Return JSON now:"""
+        current_date = datetime.now()
+        current_year = current_date.year
         
+        prompt = f"""Extract event information from this flyer image.
+
+        TODAY: {current_date.strftime('%Y-%m-%d')}
+
+        RULES:
+        - Date format: YYYY-MM-DD
+        - If no year shown, use {current_year}
+        - Ignore "EST" or "SINCE" years (those are business founding dates)
+        - "STARTS [date]" means use that date
+
+        YOU MUST RESPOND WITH ONLY THIS JSON FORMAT - NO OTHER TEXT:
+        {{"name": "event name", "organization": "host", "date": "YYYY-MM-DD", "time": "time range", "location": "venue", "address": "street address or null", "contact": "phone/email or null", "price": "cost or null"}}
+
+        JSON:"""
+    
         return prompt
     
-    def call_ollama(self, prompt: str) -> str:
+    def call_ollama_vision(self, prompt: str, image_path: str) -> str:
         """
-        Call Ollama API.
+        Call Ollama vision API with image.
         
         Args:
             prompt: Prompt to send
+            image_path: Path to image file
             
         Returns:
             Response text
@@ -138,20 +111,24 @@ class LLMClient:
         try:
             response = ollama.chat(
                 model=self.model_name,
-                messages=[{'role': 'user', 'content': prompt}],
+                messages=[{
+                    'role': 'user',
+                    'content': prompt,
+                    'images': [image_path]
+                }],
                 options={
-                    'temperature': 0.0, # deterministic output
+                    'temperature': 0.0,
                     'top_p': 0.1,
                     'top_k': 1,
-                    'seed': 42, # for reproducibility
-                    'num_predict': 512 # reduce truncation
+                    'seed': 42,
+                    'num_predict': 512
                 }
             )
             
             return response['message']['content']
         
         except Exception as e:
-            raise Exception(f"Ollama API error: {str(e)}")
+            raise Exception(f"Ollama vision API error: {str(e)}")
     
     def extract_json(self, response: str) -> str:
         """
@@ -170,12 +147,8 @@ class LLMClient:
             parts = text.split('```')
             for part in parts:
                 part = part.strip()
-                
-                # Skip 'json' keyword
                 if part.startswith('json'):
                     part = part[4:].strip()
-                
-                # Check if valid JSON structure
                 if part.startswith('{') and part.endswith('}'):
                     return part
         
@@ -186,30 +159,29 @@ class LLMClient:
         if start != -1 and end != -1 and end > start:
             return text[start:end+1]
         
-        # No JSON found
         return text
     
-    def create_event(self, data: dict, ocr_text: str, image_path: str) -> Event:
+    def create_event(self, data: dict, image_path: str) -> Event:
         """
         Create Event object from parsed data.
         
         Args:
             data: Parsed JSON
-            ocr_text: Original OCR text
             image_path: Original image path
             
         Returns:
             Event object
         """
-        # Validate and get name
-        name = self.get_name(data, ocr_text)
+        name = self.get_name(data)
         
-        # Create event
+        # We need adjust date for flyers that omit year and explicitly use current year
+        date = self.fix_date(data.get('date'))
+        
         return Event(
             id=Path(image_path).stem,
             name=name,
             organization=self.clean(data.get('organization')),
-            date=self.clean(data.get('date')),
+            date=date,
             time=self.clean(data.get('time')),
             location=self.clean(data.get('location')),
             address=self.clean(data.get('address')),
@@ -218,29 +190,19 @@ class LLMClient:
             price=self.clean(data.get('price')),
             links=[],
             image_path=image_path,
-            raw_ocr_text=ocr_text,
+            raw_ocr_text="[Extracted via vision model]",
             extracted_at=datetime.now().isoformat()
         )
     
-    def get_name(self, data: dict, ocr_text: str) -> str:
+    def get_name(self, data: dict) -> str:
         """
         Get event name with validation.
-        
-        Args:
-            data: Parsed data
-            ocr_text: OCR text for fallback
-            
-        Returns:
-            Valid event name
         """
         name = data.get('name', '').strip()
         
-        # Fallback if empty
         if not name or name.lower() in ['null', 'none']:
-            lines = [l.strip() for l in ocr_text.split('\n') if l.strip()]
-            name = ' '.join(lines[:3]) if lines else 'Unknown Event'
+            name = 'Unknown Event'
         
-        # Truncate if too long
         if len(name) > 100:
             name = name[:80].strip()
         
@@ -249,12 +211,6 @@ class LLMClient:
     def clean(self, value) -> Optional[str]:
         """
         Clean string value.
-        
-        Args:
-            value: Value to clean
-            
-        Returns:
-            Cleaned string or None
         """
         if value is None:
             return None
@@ -265,3 +221,27 @@ class LLMClient:
             return None
         
         return text
+    
+    def fix_date(self, date_str: Optional[str]) -> Optional[str]:
+        """
+        Adjust date string to include year if missing.
+        If year is not next year or missing, assume current year.
+        Args:
+            date_str: Original date string
+        Returns:
+            Adjusted date string
+        """
+        if date_str is None:
+            return None
+        
+        try:
+            current_year = datetime.now().year
+            year = int(date_str[:4]) # Extract year
+            
+            # Append current year if missing or less than current year
+            if year < current_year or not year:
+                date_str = f"{current_year}{date_str[4:]}"
+
+            return date_str
+        except (ValueError, IndexError):        
+            return date_str

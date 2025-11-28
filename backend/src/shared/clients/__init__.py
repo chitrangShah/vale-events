@@ -1,7 +1,6 @@
 """
-Clients for external services (OCR, LLM)
+Clients for external services (LLM)
 """
-from src.shared.clients.ocr_client import OCRClient
 from src.shared.clients.llm_client import LLMClient
 
-__all__ = ["OCRClient", "LLMClient"]
+__all__ = ["LLMClient"]

@@ -6,6 +6,7 @@
   import type { Event, EventGroup } from '$lib/types';
   import { getToday, parseEventDate } from '$lib/dateUtils';
   import { filterAndGroupEvents } from '$lib/eventUtils';
+  import { parseTimeRange } from '$lib/timeUtils';
 
   injectAnalytics({ mode: dev ? 'development' : 'production' });
 
@@ -48,10 +49,12 @@
   }
 
   function formatDate(dateStr: string | null): string {
-    if (!dateStr) return 'Date TBA';
+    if (!dateStr) 
+      return 'Later';
 
     const date = parseEventDate(dateStr);
-    if (!date) return 'Date TBA';
+    if (!date) 
+      return 'Later';
 
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -81,12 +84,11 @@
       return;
     }
 
-    const startTime = event.time?.split('-')[0]?.trim() || '09:00';
-    const endTime = event.time?.split('-')[1]?.trim() || '17:00';
+    const { startTime, endTime } = parseTimeRange(event.time);
 
     const uid = `${event.id}@vale-events.com`;
     const now = new Date();
-    const dtstamp = formatICSDate(now, '00:00');
+    const dtstamp = formatICSDate(now, '00:00')
     const dtstart = formatICSDate(eventDate, startTime);
     const dtend = formatICSDate(eventDate, endTime);
 

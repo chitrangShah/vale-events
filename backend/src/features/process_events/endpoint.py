@@ -9,7 +9,6 @@ router = APIRouter(prefix="/api", tags=["process"])
 # Router logic
 @router.post("/process", response_model=Output)
 async def process_events(force: bool = False) -> Output:
-
-
+    
     handler = ProcessEventsHandler()
     return handler.execute(force=force)
