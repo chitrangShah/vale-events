@@ -124,13 +124,33 @@
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
 
-    const timeMatch = time.match(/(\d+):?(\d+)?\s*(am|pm)?/i);
-    let hours = timeMatch ? parseInt(timeMatch[1]) : 9;
-    const minutes = timeMatch?.[2] || '00';
-    const ampm = timeMatch?.[3]?.toLowerCase();
-
-    if (ampm === 'pm' && hours < 12) hours += 12;
-    if (ampm === 'am' && hours === 12) hours = 0;
+    // Extract hours and minutes
+    let hours = 9;
+    let minutes = '00';
+    
+    // Find first number (hours)
+    const hourMatch = time.match(/(\d+)/);
+    if (hourMatch) {
+      hours = parseInt(hourMatch[1]);
+    }
+    
+    // Find minutes (after colon)
+    const minMatch = time.match(/:(\d+)/);
+    if (minMatch) {
+      minutes = minMatch[1];
+    }
+    
+    // Check for AM/PM (handle both "pm" and "p.m.")
+    const timeLower = time.toLowerCase();
+    const isPm = timeLower.includes('pm') || timeLower.includes('p.m');
+    const isAm = timeLower.includes('am') || timeLower.includes('a.m');
+    
+    if (isPm && hours < 12) {
+      hours += 12;
+    }
+    if (isAm && hours === 12) {
+      hours = 0;
+    }
 
     const hoursStr = String(hours).padStart(2, '0');
 

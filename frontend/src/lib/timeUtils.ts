@@ -11,11 +11,17 @@ export function parseTimeRange(timeStr: string | null): { startTime: string; end
 
   // Step 3: Split by dash
   const parts = s.split('-');
-  if (parts.length < 2) {
-    return null;
+  
+  // Single time (no range) - use same for start and end
+  if (parts.length === 1) {
+    const time = extractTime(parts[0].trim());
+    if (!time) {
+      return null;
+    }
+    return { startTime: time, endTime: time };
   }
 
-  // Step 4: Extract time from each part (time starts at first digit)
+  // Step 4: Extract time from each part
   const times: string[] = [];
   for (const part of parts) {
     const time = extractTime(part.trim());
@@ -49,8 +55,8 @@ function extractTime(part: string): string | null {
 function addAmPm(start: string, end: string): { startTime: string; endTime: string } {
   const startLower = start.toLowerCase();
   const endLower = end.toLowerCase();
-  const startHasAmPm = startLower.includes('am') || startLower.includes('pm');
-  const endHasAmPm = endLower.includes('am') || endLower.includes('pm');
+  const startHasAmPm = startLower.includes('am') || startLower.includes('pm') || startLower.includes('a.m.') || startLower.includes('p.m.');
+  const endHasAmPm = endLower.includes('am') || endLower.includes('pm') || endLower.includes('a.m.') || endLower.includes('p.m.');
 
   if (startHasAmPm && endHasAmPm) {
     return { startTime: start, endTime: end };
@@ -60,7 +66,7 @@ function addAmPm(start: string, end: string): { startTime: string; endTime: stri
   const endHour = parseInt(end);
 
   if (endHasAmPm) {
-    const endIsPm = endLower.includes('pm');
+    const endIsPm = endLower.includes('pm') || endLower.includes('p.m.');
     if (endIsPm && startHour > endHour) {
       return { startTime: `${start} AM`, endTime: end };
     }

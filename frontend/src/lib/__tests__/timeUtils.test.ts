@@ -28,4 +28,14 @@ describe('parseTimeRange', () => {
   test('uses AM when start > end and end is PM', () => {
     expect(parseTimeRange('10-2 PM')).toEqual({ startTime: '10 AM', endTime: '2 PM' });
   });
+
+  test('single time uses same for start and end', () => {
+    expect(parseTimeRange('6:00 PM')).toEqual({ startTime: '6:00 PM', endTime: '6:00 PM' });
+    expect(parseTimeRange('8:00 PM')).toEqual({ startTime: '8:00 PM', endTime: '8:00 PM' });
+  });
+
+  test('handles p.m. and a.m. with dots', () => {
+    expect(parseTimeRange('1 p.m. - 4 p.m.')).toEqual({ startTime: '1 p.m.', endTime: '4 p.m.' });
+    expect(parseTimeRange('10 a.m. - 2 p.m.')).toEqual({ startTime: '10 a.m.', endTime: '2 p.m.' });
+  });
 });
