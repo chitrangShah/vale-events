@@ -49,6 +49,22 @@
       "organization": "Old Tappan Public Library"
     },
     {
+      "id": "592434815_10107713448514284_2760770263353058411_n",
+      "image_path": "data/images/592434815_10107713448514284_2760770263353058411_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-11-30T20:28:04.582941",
+      "name": "Park Ridge Music Department Mattress Fundraiser",
+      "date": "2025-12-13",
+      "time": "10am-5pm",
+      "location": "HS Gym",
+      "address": null,
+      "description": null,
+      "contact": "Dave Cox",
+      "links": [],
+      "price": null,
+      "organization": "Park Ridge Music Department"
+    },
+    {
       "id": "589054025_17855738307565976_5954072215317209007_n",
       "image_path": "data/images/589054025_17855738307565976_5954072215317209007_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -225,6 +241,22 @@
       "organization": "Borough of Westwood"
     },
     {
+      "id": "593563594_10107713448524264_3100298631373775548_n",
+      "image_path": "data/images/593563594_10107713448524264_3100298631373775548_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-11-30T20:26:50.904035",
+      "name": "1st Annual Mattress Fundraiser",
+      "date": "2025-12-13",
+      "time": "10:00AM - 5:00PM",
+      "location": "High School Gym",
+      "address": null,
+      "description": null,
+      "contact": "dave.cox@cfsbeds.com",
+      "links": [],
+      "price": null,
+      "organization": "Park Ridge HS Music Department"
+    },
+    {
       "id": "590160237_1457223039742945_6649257961696652949_n",
       "image_path": "data/images/590160237_1457223039742945_6649257961696652949_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -305,5 +337,5 @@
       "organization": "Pascack Hills Class of 2029"
     }
   ],
-  "count": 19
+  "count": 21
 }
