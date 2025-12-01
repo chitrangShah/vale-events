@@ -289,6 +289,22 @@
       "organization": "The Hermitage"
     },
     {
+      "id": "591702400_1181964270697895_459831873558691194_n",
+      "image_path": "data/images/591702400_1181964270697895_459831873558691194_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-01T14:03:27.731918",
+      "name": "Holiday with the Animals",
+      "date": "2025-12-14",
+      "time": "11:30am-2:30pm",
+      "location": "Bergen County Zoological Park",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Bergen County Zoological Park"
+    },
+    {
       "id": "587717409_833073719472946_2147580585935882175_n.jpg 11-18-23-349",
       "image_path": "data/images/587717409_833073719472946_2147580585935882175_n.jpg 11-18-23-349.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -337,5 +353,5 @@
       "organization": "Pascack Hills Class of 2029"
     }
   ],
-  "count": 21
+  "count": 22
 }
