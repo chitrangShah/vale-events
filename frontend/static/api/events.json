@@ -273,6 +273,22 @@
       "organization": "Paramus High School"
     },
     {
+      "id": "594057504_2123188061818848_6443624255214796332_n",
+      "image_path": "data/images/594057504_2123188061818848_6443624255214796332_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-02T09:40:42.003312",
+      "name": "It Happened on 5th Avenue",
+      "date": "2025-12-10",
+      "time": "12:30-3:30 PM",
+      "location": "Westwood Theater",
+      "address": "182 Center Avenue, Westwood, NJ",
+      "description": null,
+      "contact": "kathy@northjerseyvillages.org",
+      "links": [],
+      "price": "$10/person",
+      "organization": "North Jersey Villages"
+    },
+    {
       "id": "588023611_10231055312141775_8600840320399255503_n",
       "image_path": "data/images/588023611_10231055312141775_8600840320399255503_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -353,5 +369,5 @@
       "organization": "Pascack Hills Class of 2029"
     }
   ],
-  "count": 22
+  "count": 23
 }
