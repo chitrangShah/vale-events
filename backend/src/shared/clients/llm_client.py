@@ -60,7 +60,9 @@ class LLMClient:
             except json.JSONDecodeError as e:
                 print(f"JSON parse error: {str(e)}")
                 print(f"JSON text: {json_text[:300]}")
-                raise Exception(f"Invalid JSON: {str(e)}")
+                
+                print(f"JSON failed, using fallback parser...")
+                data = self.parse_fallback_json(json_text)
             
             # Create event
             event = self.create_event(data, image_path)
@@ -245,3 +247,64 @@ class LLMClient:
             return date_str
         except (ValueError, IndexError):        
             return date_str
+        
+    def parse_fallback_json(self, response: str) -> dict:
+        """Parse non-JSON response (markdown, plain text)."""
+        data = {}
+        current_year = datetime.now().year
+        
+        lines = response.replace('*', '').split('\n')
+        
+        for line in lines:
+            if ':' not in line:
+                continue
+        
+            key, value = line.split(':', 1)
+            key = key.strip().lower()
+            value = value.strip()
+        
+            if not value:
+                continue
+        
+            if 'name' in key and 'event' in key:
+                data['name'] = value
+            elif 'host' in key or 'organization' in key:
+                data['organization'] = value
+            elif key == 'date':
+                data['date'] = self.parse_date_text(value, current_year)
+            elif key == 'time':
+                data['time'] = value
+            elif 'location' in key:
+                data['location'] = value
+            elif 'address' in key:
+                data['address'] = value
+            elif 'contact' in key:
+                data['contact'] = value
+            elif 'price' in key:
+                data['price'] = value if value.lower() != 'free' else 'Free'
+    
+        if not data.get('name'):
+            raise Exception("Could not extract event name")
+        
+        return data
+
+    def parse_date_text(self, date_text: str, current_year: int) -> str:
+        """Convert 'Sunday, December 7th' to 'YYYY-MM-DD'."""
+        months = {
+            'january': 1, 'february': 2, 'march': 3, 'april': 4,
+            'may': 5, 'june': 6, 'july': 7, 'august': 8,
+            'september': 9, 'october': 10, 'november': 11, 'december': 12
+        }
+        
+        lower = date_text.lower()
+        
+        for month_name, month_num in months.items():
+            if month_name in lower:
+                # Extract day number
+                for word in lower.replace(',', ' ').split():
+                    digits = ''.join(c for c in word if c.isdigit())
+                    if digits:
+                        day = int(digits)
+                        return f"{current_year}-{month_num:02d}-{day:02d}"
+    
+        return None

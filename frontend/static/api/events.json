@@ -33,6 +33,22 @@
       "organization": "Knights of Columbus Mother Seton Council"
     },
     {
+      "id": "577027150_10233799021731434_8451491524223301062_n",
+      "image_path": "data/images/577027150_10233799021731434_8451491524223301062_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-02T22:27:06.277367",
+      "name": "Makers Market",
+      "date": "2025-12-07",
+      "time": "1:30-4:00 PM",
+      "location": "One River School, Allendale, NJ",
+      "address": "319 Franklin Turnpike, Allendale, NJ 07401",
+      "description": null,
+      "contact": "(201) 466-1372 or allendale@oneriverschool.com",
+      "links": [],
+      "price": "Free",
+      "organization": "One River School"
+    },
+    {
       "id": "592095605_4343733529178513_1534868536980552840_n",
       "image_path": "data/images/592095605_4343733529178513_1534868536980552840_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -401,5 +417,5 @@
       "organization": "Pascack Hills Class of 2029"
     }
   ],
-  "count": 25
+  "count": 26
 }
