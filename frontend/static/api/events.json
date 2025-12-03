@@ -193,6 +193,22 @@
       "organization": "River Vale Twp"
     },
     {
+      "id": "593453225_10234097969404939_8413813630859952505_n",
+      "image_path": "data/images/593453225_10234097969404939_8413813630859952505_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-02T21:59:25.900617",
+      "name": "Come Home for the Holidays",
+      "date": "2025-12-07",
+      "time": "1:00 PM - 4:00 PM",
+      "location": "Hopper-Goetschius House Museum",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Hopper-Goetschius House Museum"
+    },
+    {
       "id": "589593278_10231161725569615_7541291423917743380_n",
       "image_path": "data/images/589593278_10231161725569615_7541291423917743380_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -255,6 +271,22 @@
       "links": [],
       "price": null,
       "organization": "Park Ridge HS Music Department"
+    },
+    {
+      "id": "591838888_10234097065862351_2680110848591445928_n",
+      "image_path": "data/images/591838888_10234097065862351_2680110848591445928_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-02T21:58:10.709728",
+      "name": "Grinch Day",
+      "date": "2025-12-06",
+      "time": "3-5:30 PM",
+      "location": "Nanuet Town Centre",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Nanuet Town Centre"
     },
     {
       "id": "590160237_1457223039742945_6649257961696652949_n",
@@ -369,5 +401,5 @@
       "organization": "Pascack Hills Class of 2029"
     }
   ],
-  "count": 23
+  "count": 25
 }
