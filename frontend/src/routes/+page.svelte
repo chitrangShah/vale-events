@@ -84,13 +84,28 @@
       return;
     }
 
-    const { startTime, endTime } = parseTimeRange(event.time);
+    const timeRange = parseTimeRange(event.time);
+    if (!timeRange) {
+      alert('Event time not available');
+      return;
+    }
+
+    const { startTime, endTime } = timeRange;
+
+    const startHour = parseHour(startTime);
+    const endHour = parseHour(endTime);
+    const crossesMidnight = endHour < startHour;
+
+    // End date is next day if crosses midnight
+    const endDate = crossesMidnight 
+      ? new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
+      : eventDate;
 
     const uid = `${event.id}@vale-events.com`;
     const now = new Date();
     const dtstamp = formatICSDate(now, '00:00')
     const dtstart = formatICSDate(eventDate, startTime);
-    const dtend = formatICSDate(eventDate, endTime);
+    const dtend = formatICSDate(endDate, endTime);
 
     const ics = [
       'BEGIN:VCALENDAR',
@@ -155,6 +170,24 @@
     const hoursStr = String(hours).padStart(2, '0');
 
     return `${year}${month}${day}T${hoursStr}${minutes}00`;
+  }
+
+  /**
+ * Extract hour (in 24h format) from time string.
+ */
+  function parseHour(time: string): number {
+    const hour = parseInt(time);
+    const lower = time.toLowerCase();
+    const isPm = lower.includes('pm') || lower.includes('p.m');
+    const isAm = lower.includes('am') || lower.includes('a.m');
+    
+    if (isPm && hour < 12) {
+      return hour + 12;
+    }
+    if (isAm && hour === 12) {
+      return 0;
+    }
+    return hour;
   }
 </script>
 

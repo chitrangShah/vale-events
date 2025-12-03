@@ -22,7 +22,13 @@ class ProcessEventsHandler:
             skipped=0,
             errors=[])
         
-        for image_path in self.images_dir.glob("*.jpg"):
+        valid_extensions = ['.jpg', '.jpeg', '.png']
+        
+        for image_path in self.images_dir.iterdir():
+            
+            if image_path.suffix.lower() not in valid_extensions:
+                continue
+            
             try:
                 # Check if already processed
                 event_file = self.events_dir / f"{image_path.stem}.json"

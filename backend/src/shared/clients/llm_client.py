@@ -177,7 +177,8 @@ class LLMClient:
         name = self.get_name(data)
         
         # We need adjust date for flyers that omit year and explicitly use current year
-        date = self.fix_date(data.get('date'))
+        # Fix for new year events like "2026 New Year's Eve" on Dec 31 = Dec 31, 2025
+        date = self.fix_year(self.clean(data.get('date')), name)
         
         return Event(
             id=Path(image_path).stem,
@@ -308,3 +309,33 @@ class LLMClient:
                         return f"{current_year}-{month_num:02d}-{day:02d}"
     
         return None
+    
+    def fix_year(self, date_str: Optional[str], event_name: str = "") -> Optional[str]:
+        """
+        Fix obviously wrong years.
+        Special case: New Year's Eve 2026 = Dec 31, 2025
+        """
+        if not date_str:
+            return None
+    
+        try:
+            current_year = datetime.now().year
+            year = int(date_str[:4])
+            month = int(date_str[5:7])
+            day = int(date_str[8:10])
+            
+            # New Year's Eve special case
+            # "2026 New Year's Eve" on Dec 31 = Dec 31, 2025
+            name_lower = event_name.lower()
+            if month == 12 and day == 31 and 'new year' in name_lower:
+                # Year on flyer is the year being celebrated, not event date
+                return f"{year - 1}-12-31"
+            
+            # Standard fix: if year is in past or too far future, use current year
+            if year < current_year or year > current_year + 1:
+                return f"{current_year}{date_str[4:]}"
+            
+            return date_str
+            
+        except (ValueError, IndexError):
+            return date_str

@@ -69,10 +69,13 @@ def process_and_export():
     frontend_images = Path("../frontend/static/images")
     frontend_images.mkdir(parents=True, exist_ok=True)
     
-    for image in backend_images.glob("*.jpg"):
-        shutil.copy(image, frontend_images / image.name)
+    valid_extensions = ['.jpg', '.jpeg', '.png']
     
-    for image in backend_images.glob("*.png"):
+    for image in backend_images.iterdir():
+        
+        if image.suffix.lower() not in valid_extensions:
+            continue
+        
         shutil.copy(image, frontend_images / image.name)
     
     print(f"\nExported {len(all_events)} events to frontend/static/api/")
