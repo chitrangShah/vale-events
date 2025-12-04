@@ -17,6 +17,22 @@
       "organization": "JK Ryan's"
     },
     {
+      "id": "595452401_10234116976000092_8411491795192377296_n",
+      "image_path": "data/images/595452401_10234116976000092_8411491795192377296_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-04T15:57:17.670368",
+      "name": "NRHS Winter Boutique",
+      "date": "2025-12-06",
+      "time": "10am-3pm",
+      "location": "North Rockland High School",
+      "address": null,
+      "description": null,
+      "contact": "KMCGovern@northrockland.org",
+      "links": [],
+      "price": null,
+      "organization": "North Rockland High School"
+    },
+    {
       "id": "581280469_10233940434346661_2940008573909369016_n",
       "image_path": "data/images/581280469_10233940434346661_2940008573909369016_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -497,5 +513,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 31
+  "count": 32
 }
