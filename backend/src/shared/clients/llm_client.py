@@ -73,12 +73,6 @@ class LLMClient:
             raise Exception(f"Vision extraction failed: {str(error)}")
     
     def build_prompt(self) -> str:
-        """
-        Build extraction prompt for vision model.
-        
-        Returns:
-            Complete prompt
-        """
         current_date = datetime.now()
         current_year = current_date.year
         
@@ -91,6 +85,8 @@ class LLMClient:
         - If no year shown, use {current_year}
         - Ignore "EST" or "SINCE" years (those are business founding dates)
         - "STARTS [date]" means use that date
+        - "[MONTH] [DAY]-[TIME]" like "December 6-2PM" means date is [MONTH] [DAY], time is [TIME]
+        - "DOORS [time] / CONCERT [time]" means time range from doors to 3 hours after doors
 
         YOU MUST RESPOND WITH ONLY THIS JSON FORMAT - NO OTHER TEXT:
         {{"name": "event name", "organization": "host", "date": "YYYY-MM-DD", "time": "time range", "location": "venue", "address": "street address or null", "contact": "phone/email or null", "price": "cost or null"}}

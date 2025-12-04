@@ -33,6 +33,22 @@
       "organization": "Knights of Columbus Mother Seton Council"
     },
     {
+      "id": "593484074_10240492554709799_6439763845798977994_n",
+      "image_path": "data/images/593484074_10240492554709799_6439763845798977994_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-03T20:04:39.017729",
+      "name": "Fall 2025 Concert",
+      "date": "2025-12-13",
+      "time": "1:30PM - 4:30PM",
+      "location": "Randolph High School",
+      "address": "511 Millbrook Ave, Randolph, NJ 07869",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "free",
+      "organization": "New Jersey Gamer Symphony Orchestra"
+    },
+    {
       "id": "577027150_10233799021731434_8451491524223301062_n",
       "image_path": "data/images/577027150_10233799021731434_8451491524223301062_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -191,6 +207,22 @@
       "links": [],
       "price": null,
       "organization": "Mexico Mi Amor"
+    },
+    {
+      "id": "593426968_1408666361269545_2496545028203139725_n",
+      "image_path": "data/images/593426968_1408666361269545_2496545028203139725_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-03T19:44:57.350918",
+      "name": "Plant Power: Legos & a Movie",
+      "date": "2025-12-06",
+      "time": "10:00 a.m. - 12:00 p.m.",
+      "location": "Pascack Valley High School",
+      "address": "200 Piermont Avenue, Hillsdale, NJ",
+      "description": null,
+      "contact": "www.team1676.com",
+      "links": [],
+      "price": "Free",
+      "organization": "Pascack Pi-oneers FIRST Robotics Team 1676"
     },
     {
       "id": "593453225_10234097969404939_8413813630859952505_n",
@@ -353,6 +385,22 @@
       "organization": "North Jersey Villages"
     },
     {
+      "id": "594075057_1256806443142016_1558587104545469708_n",
+      "image_path": "data/images/594075057_1256806443142016_1558587104545469708_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-03T19:39:27.588303",
+      "name": "Live Music Featuring Stache and the 5 O'Clock Shadow",
+      "date": "2025-12-04",
+      "time": "7pm-9pm",
+      "location": "Hillsdale Free Public Library",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Hillsdale Free Public Library"
+    },
+    {
       "id": "591702400_1181964270697895_459831873558691194_n",
       "image_path": "data/images/591702400_1181964270697895_459831873558691194_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -417,6 +465,22 @@
       "organization": "Mexico Mi Amor"
     },
     {
+      "id": "595014957_1256806439808683_7071734608299516554_n",
+      "image_path": "data/images/595014957_1256806439808683_7071734608299516554_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-03T20:03:06.277327",
+      "name": "Renegade Rick Holiday Rock Music",
+      "date": "2025-12-06",
+      "time": "2PM-4PM",
+      "location": "Hillsdale Public Library",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Hillsdale Public Library"
+    },
+    {
       "id": "6c2aa950-e998-4d02-8270-ca4f3b5b02aa",
       "image_path": "data/images/6c2aa950-e998-4d02-8270-ca4f3b5b02aa.jpeg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -433,5 +497,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 27
+  "count": 31
 }
