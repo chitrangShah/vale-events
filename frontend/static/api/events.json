@@ -113,6 +113,22 @@
       "organization": "Park Ridge Music Department"
     },
     {
+      "id": "593504439_10163936662197948_3743703597392389589_n",
+      "image_path": "data/images/593504439_10163936662197948_3743703597392389589_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-05T11:47:19.162742",
+      "name": "Women's Circle: Generosity of Spirit & Collective Community",
+      "date": "2025-12-17",
+      "time": "11:30 AM - 1:00 PM",
+      "location": "Center For Mind Body Balance",
+      "address": "96 E Allendale Rd, Saddle River, NJ 07458",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Center For Mind Body Balance"
+    },
+    {
       "id": "589819031_122161837256781697_7664845519025203932_n",
       "image_path": "data/images/589819031_122161837256781697_7664845519025203932_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -127,6 +143,22 @@
       "links": [],
       "price": "$25 for a 7\" pot with cover, $12 for a 6\" pot with cover",
       "organization": "Cub Scout Pack 228, Township of Washington"
+    },
+    {
+      "id": "596043769_10234129290947958_5834996595665225963_n",
+      "image_path": "data/images/596043769_10234129290947958_5834996595665225963_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-05T11:41:56.076559",
+      "name": "Adoption Event",
+      "date": "2025-12-14",
+      "time": "12-2PM",
+      "location": "Roots Cafe",
+      "address": "84 Herbert Ave., Closter, NJ 07624",
+      "description": null,
+      "contact": "www.peace4paws.org",
+      "links": [],
+      "price": null,
+      "organization": "Peace4Paws"
     },
     {
       "id": "580655729_10164403972986133_8033407301654485039_n",
@@ -207,6 +239,54 @@
       "links": [],
       "price": null,
       "organization": "Westwood Community Jazz Band"
+    },
+    {
+      "id": "595355981_10234129218266141_8118740838056843076_n",
+      "image_path": "data/images/595355981_10234129218266141_8118740838056843076_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-05T11:45:42.814115",
+      "name": "Adult Cat Adoption Day",
+      "date": "2025-12-06",
+      "time": "11AM-2PM",
+      "location": "Happy Cat Hotel",
+      "address": "17-12 River Road, Fair Lawn",
+      "description": null,
+      "contact": "www.clawsadopt.org",
+      "links": [],
+      "price": null,
+      "organization": "Claws Closter Animal Welfare Society"
+    },
+    {
+      "id": "594067369_10231165156807823_663868009078621284_n",
+      "image_path": "data/images/594067369_10231165156807823_663868009078621284_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-05T11:40:14.624499",
+      "name": "Winter Craft Fair",
+      "date": "2025-12-06",
+      "time": "11:00 AM - 4:00 PM",
+      "location": "Old Tappan Public Library",
+      "address": "56 Russell Avenue, Old Tappan, NJ 07675",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Old Tappan Public Library"
+    },
+    {
+      "id": "594692609_10234129291027960_5173672094283802620_n",
+      "image_path": "data/images/594692609_10234129291027960_5173672094283802620_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-05T11:43:47.378986",
+      "name": "Adoption Event",
+      "date": "2025-12-20",
+      "time": "12PM-2PM",
+      "location": "Westwoof",
+      "address": "15 Westwood Ave, Westwood, NJ 07675",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Peace4Paws"
     },
     {
       "id": "8046898c-78e4-48c6-926a-b2f1056d8d24",
@@ -513,5 +593,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 32
+  "count": 37
 }
