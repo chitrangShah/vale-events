@@ -81,6 +81,22 @@
       "organization": "One River School"
     },
     {
+      "id": "577063504_10235317954102886_8263384941443441496_n",
+      "image_path": "data/images/577063504_10235317954102886_8263384941443441496_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-06T16:15:21.533003",
+      "name": "Holiday Market",
+      "date": "2025-12-06",
+      "time": "10-4pm",
+      "location": "Bookends Bookstore",
+      "address": "211 East Ridgewood Ave, Ridgewood NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "Bookends Bookstore"
+    },
+    {
       "id": "592095605_4343733529178513_1534868536980552840_n",
       "image_path": "data/images/592095605_4343733529178513_1534868536980552840_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -593,5 +609,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 37
+  "count": 38
 }
