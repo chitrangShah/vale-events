@@ -33,6 +33,22 @@
       "organization": "North Rockland High School"
     },
     {
+      "id": "594070360_3358242700994536_557987748643742522_n",
+      "image_path": "data/images/594070360_3358242700994536_557987748643742522_n.jpg",
+      "raw_ocr_text": "[Extracted via vision model]",
+      "extracted_at": "2025-12-06T22:48:01.330431",
+      "name": "Winter Makers Market",
+      "date": "2025-12-07",
+      "time": "1:30-4:00PM",
+      "location": "One River",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": null,
+      "organization": "One River"
+    },
+    {
       "id": "581280469_10233940434346661_2940008573909369016_n",
       "image_path": "data/images/581280469_10233940434346661_2940008573909369016_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -609,5 +625,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 38
+  "count": 39
 }
