@@ -5,7 +5,7 @@ class Event(BaseModel):
     # Required fields
     id: str
     image_path: str
-    raw_ocr_text: str
+    raw_ocr_text: Optional[str] = None
     extracted_at: str
     
     # Core event info (at least name should be present)

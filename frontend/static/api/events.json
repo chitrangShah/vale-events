@@ -129,6 +129,22 @@
       "organization": "Old Tappan Public Library"
     },
     {
+      "id": "596202589_1411939044275610_6755941667180030682_n",
+      "image_path": "data/images/596202589_1411939044275610_6755941667180030682_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-08T15:56:07.128107",
+      "name": "LEGOs & A Movie: Girls Who Build & Code",
+      "date": "2025-12-13",
+      "time": "10:00 a.m. - 12:00 p.m.",
+      "location": "Pascack Hills High School",
+      "address": "225 W Grand Avenue, Montvale",
+      "description": null,
+      "contact": "https://tinyurl.com/38wckrb8",
+      "links": [],
+      "price": "$20",
+      "organization": "Pascack Pi-oneers FIRST Robotics Team 1676"
+    },
+    {
       "id": "592434815_10107713448514284_2760770263353058411_n",
       "image_path": "data/images/592434815_10107713448514284_2760770263353058411_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -561,6 +577,22 @@
       "organization": "St. Joseph Regional High School"
     },
     {
+      "id": "596421383_10166424720058146_6495884568419026289_n",
+      "image_path": "data/images/596421383_10166424720058146_6495884568419026289_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-08T15:54:49.688739",
+      "name": "The Nutcracker",
+      "date": "2025-12-13",
+      "time": "7 PM",
+      "location": "River Dell High School",
+      "address": "55 Pyle Street, Oradell, NJ",
+      "description": null,
+      "contact": "201-970-7690",
+      "links": [],
+      "price": "Free",
+      "organization": "BalletArts"
+    },
+    {
       "id": "591624499_10121712482058789_201915043763624437_n",
       "image_path": "data/images/591624499_10121712482058789_201915043763624437_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -625,5 +657,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 39
+  "count": 41
 }

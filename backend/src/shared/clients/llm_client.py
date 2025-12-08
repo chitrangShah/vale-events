@@ -25,16 +25,8 @@ class LLMClient:
         """
         self.model_name = model_name
     
-    def parse_event_from_image(self, image_path: str) -> Event:
-        """
-        Extract event info directly from image using vision model.
-        
-        Args:
-            image_path: Path to event flyer image
-            
-        Returns:
-            Event object
-        """
+    def parse_events_from_image(self, image_path: str) -> list[Event]:
+        """Parse one or more events from an image."""
         # Build prompt
         prompt = self.build_prompt()
         
@@ -63,11 +55,20 @@ class LLMClient:
                 
                 print(f"JSON failed, using fallback parser...")
                 data = self.parse_fallback_json(json_text)
+                
+            # Check for list
+            if isinstance(data, dict):
+                data = [data]
             
-            # Create event
-            event = self.create_event(data, image_path)
+            # Create events
+            events = []
+            for i, event_data in enumerate(data):
+                # Add suffix to ID for multi-date events
+                suffix = f"_{i+1}" if len(data) > 1 else ""
+                event = self.create_event(event_data, image_path, id_suffix=suffix)
+                events.append(event)
             
-            return event
+            return events
         
         except Exception as error:
             raise Exception(f"Vision extraction failed: {str(error)}")
@@ -83,13 +84,14 @@ class LLMClient:
         RULES:
         - Date format: YYYY-MM-DD
         - If no year shown, use {current_year}
-        - Ignore "EST" or "SINCE" years (those are business founding dates)
-        - "STARTS [date]" means use that date
-        - "[MONTH] [DAY]-[TIME]" like "December 6-2PM" means date is [MONTH] [DAY], time is [TIME]
-        - "DOORS [time] / CONCERT [time]" means time range from doors to 3 hours after doors
+        - Ignore "EST" or "SINCE" years (business founding dates)
+        - For price: Look for "$", "fee", "cost", "per person". "$20 fee" = "$20". "$20 per person" = "$20". $20 /pp = "$20". If none found, use "Free"
+        - If multiple dates/times shown, create separate event for each
 
-        YOU MUST RESPOND WITH ONLY THIS JSON FORMAT - NO OTHER TEXT:
-        {{"name": "event name", "organization": "host", "date": "YYYY-MM-DD", "time": "time range", "location": "venue", "address": "street address or null", "contact": "phone/email or null", "price": "cost or null"}}
+        RESPOND WITH JSON ARRAY - NO OTHER TEXT:
+        [{{"name": "", "organization": "", "date": "YYYY-MM-DD", "time": "", "location": "", "address": "", "contact": "", "price": ""}}]
+
+        For multi-date events, return multiple objects in the array.
 
         JSON:"""
     
@@ -159,7 +161,7 @@ class LLMClient:
         
         return text
     
-    def create_event(self, data: dict, image_path: str) -> Event:
+    def create_event(self, data: dict, image_path: str, id_suffix: str = "") -> Event:
         """
         Create Event object from parsed data.
         
@@ -171,13 +173,14 @@ class LLMClient:
             Event object
         """
         name = self.get_name(data)
+        base_id = Path(image_path).stem
         
         # We need adjust date for flyers that omit year and explicitly use current year
         # Fix for new year events like "2026 New Year's Eve" on Dec 31 = Dec 31, 2025
         date = self.fix_year(self.clean(data.get('date')), name)
         
         return Event(
-            id=Path(image_path).stem,
+            id=f"{base_id}{id_suffix}",
             name=name,
             organization=self.clean(data.get('organization')),
             date=date,
@@ -188,8 +191,7 @@ class LLMClient:
             contact=self.clean(data.get('contact')),
             price=self.clean(data.get('price')),
             links=[],
-            image_path=image_path,
-            raw_ocr_text="[Extracted via vision model]",
+            image_path=str(image_path),
             extracted_at=datetime.now().isoformat()
         )
     
