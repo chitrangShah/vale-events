@@ -1,6 +1,22 @@
 {
   "events": [
     {
+      "id": "595897685_10239853797872405_4961983691861075898_n",
+      "image_path": "data/images/595897685_10239853797872405_4961983691861075898_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-09T10:14:22.574734",
+      "name": "Crochet & Coffee",
+      "date": "2025-12-11",
+      "time": "7-9PM",
+      "location": "Vale Coffee Shoppe",
+      "address": "669 Westwood Avenue, River Vale, NJ 07675",
+      "description": null,
+      "contact": "Felicia at 201-803-8928",
+      "links": [],
+      "price": "Free",
+      "organization": null
+    },
+    {
       "id": "588554260_10233985916723692_5673508686135186197_n",
       "image_path": "data/images/588554260_10233985916723692_5673508686135186197_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -337,6 +353,22 @@
       "organization": "Peace4Paws"
     },
     {
+      "id": "597871338_10174163202260227_9030607926833694633_n",
+      "image_path": "data/images/597871338_10174163202260227_9030607926833694633_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-09T10:12:56.191969",
+      "name": "Free Holiday Concert",
+      "date": "2025-12-13",
+      "time": "7:00 PM",
+      "location": "Parkside Community Church",
+      "address": "Corner of 3rd Ave & Park, Westwood",
+      "description": null,
+      "contact": "201-834-4192",
+      "links": [],
+      "price": "Free",
+      "organization": "Parkside Food Pantry"
+    },
+    {
       "id": "8046898c-78e4-48c6-926a-b2f1056d8d24",
       "image_path": "data/images/8046898c-78e4-48c6-926a-b2f1056d8d24.jpeg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -657,5 +689,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 41
+  "count": 43
 }
