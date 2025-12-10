@@ -241,6 +241,22 @@
       "organization": "Westwood Softball"
     },
     {
+      "id": "595611294_10229662323527084_1245411147736794398_n",
+      "image_path": "data/images/595611294_10229662323527084_1245411147736794398_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-10T11:53:33.889476",
+      "name": "Winter Concert",
+      "date": "2025-12-10",
+      "time": "7pm",
+      "location": null,
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "PASCACK HILLS MUSIC DEPARTMENT"
+    },
+    {
       "id": "586749602_1501718875289744_6119001528059654560_n.jpg 11-18-23-337",
       "image_path": "data/images/586749602_1501718875289744_6119001528059654560_n.jpg 11-18-23-337.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -287,6 +303,22 @@
       "links": [],
       "price": null,
       "organization": "EMC ARTS"
+    },
+    {
+      "id": "597639287_10234190128348855_3185819455092776312_n",
+      "image_path": "data/images/597639287_10234190128348855_3185819455092776312_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-10T11:23:55.169918",
+      "name": "TICE'S CORNER WINTER FESTIVAL",
+      "date": "2025-12-11",
+      "time": "5:00 PM - 8:00 PM",
+      "location": "TICE'S CORNER",
+      "address": "WOODCLIFF LAKE, NJ, USA",
+      "description": null,
+      "contact": "TICE'S CORNER",
+      "links": [],
+      "price": "Free",
+      "organization": "TICE'S CORNER"
     },
     {
       "id": "580488881_10233864435886747_7500006468780987585_n",
@@ -415,6 +447,22 @@
       "links": [],
       "price": null,
       "organization": "Hopper-Goetschius House Museum"
+    },
+    {
+      "id": "597616822_10234190056027047_5910345600167740542_n",
+      "image_path": "data/images/597616822_10234190056027047_5910345600167740542_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-10T11:40:42.813982",
+      "name": "A Night at the North Pole",
+      "date": "2025-12-10",
+      "time": "6:30-8:30pm",
+      "location": "Bergen Catholic High School",
+      "address": "1040 Oradell Ave, Oradell, NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Bergen Catholic High School"
     },
     {
       "id": "607937f2-3038-4969-a629-ee5147647cb3",
@@ -625,6 +673,22 @@
       "organization": "BalletArts"
     },
     {
+      "id": "597646651_1296457535853570_1301862224669852652_n",
+      "image_path": "data/images/597646651_1296457535853570_1301862224669852652_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-10T11:25:23.119049",
+      "name": "Petting Zoo Special",
+      "date": "2025-12-13",
+      "time": "10 AM - 3 PM",
+      "location": "Demarest Farms",
+      "address": "Demarest Farms, 123 Main St, Demarest, NJ 07627",
+      "description": null,
+      "contact": "Demarest Farms",
+      "links": [],
+      "price": "Free",
+      "organization": "Demarest Farms"
+    },
+    {
       "id": "591624499_10121712482058789_201915043763624437_n",
       "image_path": "data/images/591624499_10121712482058789_201915043763624437_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -689,5 +753,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 43
+  "count": 48
 }
