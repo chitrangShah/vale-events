@@ -1,6 +1,22 @@
 {
   "events": [
     {
+      "id": "595675688_10121799689105169_1202287759673484973_n",
+      "image_path": "data/images/595675688_10121799689105169_1202287759673484973_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-10T11:55:09.357462",
+      "name": "Chipotle Fundraiser for Pascack Hills Class of 2029",
+      "date": "2025-12-10",
+      "time": "4-8pm",
+      "location": "18 Farm VW, Montvale, NJ",
+      "address": "Montvale, NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Pascack Hills Class of 2029"
+    },
+    {
       "id": "595897685_10239853797872405_4961983691861075898_n",
       "image_path": "data/images/595897685_10239853797872405_4961983691861075898_n.jpg",
       "raw_ocr_text": null,
@@ -313,7 +329,7 @@
       "date": "2025-12-11",
       "time": "5:00 PM - 8:00 PM",
       "location": "TICE'S CORNER",
-      "address": "WOODCLIFF LAKE, NJ, USA",
+      "address": "WOODCLEFT LAKE, IL, USA",
       "description": null,
       "contact": "TICE'S CORNER",
       "links": [],
@@ -399,6 +415,22 @@
       "links": [],
       "price": "Free",
       "organization": "Parkside Food Pantry"
+    },
+    {
+      "id": "599196701_846828161430835_6614067855575044705_n",
+      "image_path": "data/images/599196701_846828161430835_6614067855575044705_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-11T12:03:41.898254",
+      "name": "Paramus Catholic High School Christmas Craft Fair",
+      "date": "2025-12-14",
+      "time": "10am to 4pm",
+      "location": "Paramus Catholic High School",
+      "address": "425 Paramus Road, Paramus, NJ 07652",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "$2",
+      "organization": "Paramus Catholic High School"
     },
     {
       "id": "8046898c-78e4-48c6-926a-b2f1056d8d24",
@@ -753,5 +785,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 48
+  "count": 49
 }
