@@ -81,6 +81,22 @@
       "organization": "One River"
     },
     {
+      "id": "599927547_10234227200755642_4116829902575436160_n",
+      "image_path": "data/images/599927547_10234227200755642_4116829902575436160_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:18:45.935869",
+      "name": "Children's Drive-Thru Holiday Experience",
+      "date": "2025-12-20",
+      "time": "4:30-7:30 PM",
+      "location": "300 Western Highway",
+      "address": "Tappan, NY",
+      "description": null,
+      "contact": "Volunteer Fire Association of Tappan",
+      "links": [],
+      "price": "Free",
+      "organization": "Volunteer Fire Association of Tappan"
+    },
+    {
       "id": "581280469_10233940434346661_2940008573909369016_n",
       "image_path": "data/images/581280469_10233940434346661_2940008573909369016_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -127,6 +143,38 @@
       "links": [],
       "price": "Free",
       "organization": "One River School"
+    },
+    {
+      "id": "599470424_10234227169234854_2567224312724994542_n",
+      "image_path": "data/images/599470424_10234227169234854_2567224312724994542_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:21:16.970448",
+      "name": "Westwood Community Band 25th Season Finale",
+      "date": "2025-12-21",
+      "time": "3-4 PM",
+      "location": "Hurley Theater, Westwood Regional High School",
+      "address": "701 Ridgewood Rd, Twp of Washington",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Westwood Community Band"
+    },
+    {
+      "id": "600274503_10234227157274555_5146225072818981030_n",
+      "image_path": "data/images/600274503_10234227157274555_5146225072818981030_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:16:12.415623",
+      "name": "Music for Life Winter Holiday Band Festival",
+      "date": "2025-12-21",
+      "time": "11am-2pm",
+      "location": "The Palisades Center",
+      "address": "1000 Palisades Center Drive, West Nyack, NY 10994",
+      "description": null,
+      "contact": "Music for Life",
+      "links": [],
+      "price": "Free",
+      "organization": "Music for Life"
     },
     {
       "id": "577063504_10235317954102886_8263384941443441496_n",
@@ -305,6 +353,22 @@
       "organization": "Bergen Volunteers"
     },
     {
+      "id": "600300640_10234227256157027_8675707273821310433_n",
+      "image_path": "data/images/600300640_10234227256157027_8675707273821310433_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:11:50.322457",
+      "name": "Holiday Parade",
+      "date": "2025-12-13",
+      "time": "6:00 PM",
+      "location": "Corner of Lester Drive and Orangeburg Roads",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Orangeburg Volunteer Fire Department"
+    },
+    {
       "id": "584775217_10233896209881077_6378389490206637919_n",
       "image_path": "data/images/584775217_10233896209881077_6378389490206637919_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -353,6 +417,22 @@
       "organization": "Westwood Community Jazz Band"
     },
     {
+      "id": "598944307_10234227157434559_6941098078187824551_n",
+      "image_path": "data/images/598944307_10234227157434559_6941098078187824551_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:14:55.588482",
+      "name": "NVD Senior Class 2026 Project Graduation Holiday Boutique",
+      "date": "2025-12-14",
+      "time": "1-5 PM",
+      "location": "Northern Valley Demarest High School",
+      "address": "150 Knickerbocker Rd, Demarest, NJ 07627",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "NVD Senior Class 2026"
+    },
+    {
       "id": "595355981_10234129218266141_8118740838056843076_n",
       "image_path": "data/images/595355981_10234129218266141_8118740838056843076_n.jpg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -399,6 +479,22 @@
       "links": [],
       "price": null,
       "organization": "Peace4Paws"
+    },
+    {
+      "id": "600264321_10234227157074550_5058868788405895229_n",
+      "image_path": "data/images/600264321_10234227157074550_5058868788405895229_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:17:32.799157",
+      "name": "Tenafly Holiday Fair",
+      "date": "2025-12-14",
+      "time": "12-5pm",
+      "location": "Huyler Park",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": null
     },
     {
       "id": "597871338_10174163202260227_9030607926833694633_n",
@@ -593,6 +689,22 @@
       "organization": "Park Ridge HS Music Department"
     },
     {
+      "id": "600293829_10234227415561012_1308125020556460816_n",
+      "image_path": "data/images/600293829_10234227415561012_1308125020556460816_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:13:23.651027",
+      "name": "Holiday Fair Day",
+      "date": "2025-12-13",
+      "time": "12pm-4pm",
+      "location": "Hotel Nyack",
+      "address": "400 High Ave, Nyack, NY 10960",
+      "description": null,
+      "contact": "845-200-1302",
+      "links": [],
+      "price": "Free",
+      "organization": "Hotel Nyack"
+    },
+    {
       "id": "df7fc845-72e3-4bb7-bf9e-2f7838a2bfe4",
       "image_path": "data/images/df7fc845-72e3-4bb7-bf9e-2f7838a2bfe4.jpeg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -655,6 +767,22 @@
       "links": [],
       "price": null,
       "organization": "Hillsdale Free Public Library"
+    },
+    {
+      "id": "599929801_10234226188490336_2193117251973363407_n",
+      "image_path": "data/images/599929801_10234226188490336_2193117251973363407_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-12T10:20:02.407798",
+      "name": "Merry Little Christmas",
+      "date": "2025-12-12",
+      "time": "5:00-7:30pm",
+      "location": "Badolati Christmas on Briarwood",
+      "address": "50 Briarwood Ave., Norwood",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "The Badolati Family"
     },
     {
       "id": "591702400_1181964270697895_459831873558691194_n",
@@ -785,5 +913,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 49
+  "count": 57
 }
