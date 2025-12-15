@@ -353,6 +353,22 @@
       "organization": "Bergen Volunteers"
     },
     {
+      "id": "600294266_25306015695676210_85856579679414299_n",
+      "image_path": "data/images/600294266_25306015695676210_85856579679414299_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-15T12:24:25.244235",
+      "name": "Snowflakes and Spirits Sip and Shop",
+      "date": "2025-12-18",
+      "time": "6pm - 9pm",
+      "location": "Mason Jar Family Restaurant and Bar",
+      "address": "219 Ramapo Valley Road, Mahwah, NJ 07430",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Mason Jar Family Restaurant and Bar"
+    },
+    {
       "id": "600300640_10234227256157027_8675707273821310433_n",
       "image_path": "data/images/600300640_10234227256157027_8675707273821310433_n.jpg",
       "raw_ocr_text": null,
@@ -525,7 +541,7 @@
       "description": null,
       "contact": null,
       "links": [],
-      "price": "$2",
+      "price": "Free",
       "organization": "Paramus Catholic High School"
     },
     {
@@ -897,6 +913,22 @@
       "organization": "Hillsdale Public Library"
     },
     {
+      "id": "600870643_10234267010070850_1758558002409920567_n",
+      "image_path": "data/images/600870643_10234267010070850_1758558002409920567_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-15T12:25:34.772439",
+      "name": "Townhall Meeting",
+      "date": "2026-01-20",
+      "time": "7PM-9PM",
+      "location": "Hillsdale Borough Hall",
+      "address": "Hillsdale, NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Hillsdale Mayor and Council"
+    },
+    {
       "id": "6c2aa950-e998-4d02-8270-ca4f3b5b02aa",
       "image_path": "data/images/6c2aa950-e998-4d02-8270-ca4f3b5b02aa.jpeg",
       "raw_ocr_text": "[Extracted via vision model]",
@@ -913,5 +945,5 @@
       "organization": "Mexico Mi Amor"
     }
   ],
-  "count": 57
+  "count": 59
 }
