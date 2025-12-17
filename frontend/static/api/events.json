@@ -913,6 +913,22 @@
       "organization": "Hillsdale Public Library"
     },
     {
+      "id": "595282929_10234183546664317_5782907341919191743_n",
+      "image_path": "data/images/595282929_10234183546664317_5782907341919191743_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-17T10:47:46.552004",
+      "name": "Westwood Community Band 25th Season Finale Holiday Concert",
+      "date": "2025-12-21",
+      "time": "3-4 PM",
+      "location": "Hurley Theater, Westwood Regional High School",
+      "address": "701 Ridgewood Rd, Westwood, NJ",
+      "description": null,
+      "contact": "Free",
+      "links": [],
+      "price": "Free",
+      "organization": "Westwood Community Band"
+    },
+    {
       "id": "600870643_10234267010070850_1758558002409920567_n",
       "image_path": "data/images/600870643_10234267010070850_1758558002409920567_n.jpg",
       "raw_ocr_text": null,
@@ -943,7 +959,23 @@
       "links": [],
       "price": "Early bird: $99, Regular: $120",
       "organization": "Mexico Mi Amor"
+    },
+    {
+      "id": "600782068_10234279098613056_2547423431886824064_n",
+      "image_path": "data/images/600782068_10234279098613056_2547423431886824064_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2025-12-17T10:46:22.127493",
+      "name": "Music by the Pond",
+      "date": "2025-12-21",
+      "time": "2-4 PM",
+      "location": "Closter Nature Center",
+      "address": "Closter, NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Closter Nature Center"
     }
   ],
-  "count": 59
+  "count": 61
 }
