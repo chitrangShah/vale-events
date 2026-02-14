@@ -49,6 +49,38 @@
       "organization": null
     },
     {
+      "id": "634810956_10162131827875925_7699384986300236403_n",
+      "image_path": "data/images/634810956_10162131827875925_7699384986300236403_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2026-02-14T09:05:40.758168",
+      "name": "Protecting Our Kids: The Many Dangers of Social Media",
+      "date": "2026-04-08",
+      "time": "7pm",
+      "location": "Pascack Hills HS Auditorium",
+      "address": null,
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Hills Valley Coalition"
+    },
+    {
+      "id": "636736433_10235024398845096_6601229946785256109_n",
+      "image_path": "data/images/636736433_10235024398845096_6601229946785256109_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2026-02-14T09:04:19.115577",
+      "name": "Repair Cafe",
+      "date": "2026-02-21",
+      "time": "1-4pm",
+      "location": "Ridgewood Public Library",
+      "address": "125 N Maple Ave, Ridgewood, NJ",
+      "description": null,
+      "contact": null,
+      "links": [],
+      "price": "Free",
+      "organization": "Ridgewood Public Library"
+    },
+    {
       "id": "619305585_10232216793384679_9178453106749453680_n",
       "image_path": "data/images/619305585_10232216793384679_9178453106749453680_n.jpg",
       "raw_ocr_text": null,
@@ -63,6 +95,54 @@
       "links": [],
       "price": "Free",
       "organization": "St. Andrew's Episcopal Church"
+    },
+    {
+      "id": "633670496_10163941831829350_3611367037302857071_n",
+      "image_path": "data/images/633670496_10163941831829350_3611367037302857071_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2026-02-14T09:03:05.202402",
+      "name": "The Beauty Social",
+      "date": "2026-03-04",
+      "time": "5:30-9:00pm",
+      "location": "Padel United Sports Club",
+      "address": "Cresskill, NJ",
+      "description": null,
+      "contact": "BeautySocialNJ.com",
+      "links": [],
+      "price": "$20",
+      "organization": "Experiences"
+    },
+    {
+      "id": "628852331_10173597291340307_3177141138232328936_n",
+      "image_path": "data/images/628852331_10173597291340307_3177141138232328936_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2026-02-14T09:01:44.271180",
+      "name": "Pascack Rockers Dance Team Tryouts",
+      "date": "2026-05-00",
+      "time": null,
+      "location": "Pascack Valley High School",
+      "address": "Dance Room",
+      "description": null,
+      "contact": "rvrockersdance@gmail.com",
+      "links": [],
+      "price": "Free",
+      "organization": "Pascack Rockers Dance Team"
+    },
+    {
+      "id": "636926671_10235270605160193_3754976875013675715_n",
+      "image_path": "data/images/636926671_10235270605160193_3754976875013675715_n.jpg",
+      "raw_ocr_text": null,
+      "extracted_at": "2026-02-14T09:07:00.373928",
+      "name": "OLD NORTH THRIFT SHOPPE",
+      "date": "2026-02-14",
+      "time": "9 A.M. - 2 P.M.",
+      "location": null,
+      "address": "120 Washington Avenue, Dumont, NJ",
+      "description": null,
+      "contact": "201-385-2243",
+      "links": [],
+      "price": "Free",
+      "organization": null
     },
     {
       "id": "617548389_10234713276667236_2665299531214809627_n",
@@ -81,5 +161,5 @@
       "organization": null
     }
   ],
-  "count": 5
+  "count": 10
 }
